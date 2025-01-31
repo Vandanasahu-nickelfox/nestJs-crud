@@ -10,18 +10,16 @@ import {
 } from '@nestjs/common';
 import { CarService } from './car.service'; //import the service hat contains the logic for fetching data (in this case, data about cars).
 import { CarDto } from './car.dto';
-// import { query } from 'express';
+
 
 @Controller('car')
 export class CarController {
-  //first thing inject the service
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService) {} // inject the service into the controller
 
   //end points method- inside controller
 
-  @Get() //inside this paranthesis we can pass the route/subroute
-  //empty paranthesid means just calling get method on this car route
-  public  getCars() {
+  @Get() //inside this paranthesis we can pass the route/subroute//empty paranthesid means just calling get method on this car route
+  public getCars() {
     return this.carService.getCars(); //call the service method
 
     //Using await: You would use await if you need to perform operations on the resolved result of the Promise
@@ -36,26 +34,22 @@ export class CarController {
   }
 
   @Get(':id')
-  public async getCarById(@Param('id') id: number) {
+  public getCarById(@Param('id') id: number) {
     return this.carService.getCarById(id);
+
   }
 
   @Delete(':id')
-public async deleteCarById(@Param('id') id: number) {
-  const result = await this.carService.deleteCarById(id);
-  
-  if (result) {
-    return { message: 'Deleted successfully' };
-  } else {
-    return { message: 'Car not found' };
+  public async deleteCarById(@Param('id') id: number) {
+    const result = await this.carService.deleteCarById(id);
+    return result;
   }
-}
-
 
   @Put(':id')
   public async putCarById(@Param('id') id: number, @Query() query) {
     const propertyName = query.property_name;
     const propertyValue = query.property_value;
-    return this.carService.putCarById(id, propertyName, propertyValue);
+    const result = await this.carService.putCarById(id, propertyName, propertyValue);
+    return result;
   }
 }
