@@ -1,30 +1,30 @@
-// src/car/models/car.model.ts
-import { Column, Model, Table, DataType } from 'sequelize-typescript';
+import { Column, Model, PrimaryKey, AutoIncrement, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { UserModel } from '../user/user.model';  // Import UserModel for relationship
 
-@Table({ tableName: 'cars' })
+@Table
 export class CarModel extends Model {
-  @Column({
-    type: DataType.INTEGER,
-    primaryKey: true,
-    autoIncrement: true,
-  })
+  @PrimaryKey
+  @AutoIncrement
+  @Column
   id: number;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+  @Column
   brand: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
+  @Column
+  model: string;
+
+  @Column
   color: string;
 
-  @Column({
-    type: DataType.STRING,
-    allowNull: false,
-  })
-  model: string;
+  @ForeignKey(() => UserModel)  // Foreign key to UserModel
+  @Column
+  userId: number;
+
+  @BelongsTo(() => UserModel)  // This sets the reverse of HasMany in UserModel
+  user: UserModel; // This allows you to reference the user directly from a car instance
 }
+
+
+
+
