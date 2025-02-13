@@ -1,7 +1,7 @@
 import { Column, Model, PrimaryKey, AutoIncrement, Table, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { UserModel } from '../user/user.model';  // Import UserModel for relationship
 
-@Table
+@Table({ tableName: 'cars' })
 export class CarModel extends Model {
   @PrimaryKey
   @AutoIncrement
@@ -17,13 +17,14 @@ export class CarModel extends Model {
   @Column
   color: string;
 
-  @ForeignKey(() => UserModel)  // Foreign key to UserModel
-  @Column
+  @ForeignKey(() => UserModel)
+  @Column({ field: 'user_id' })  // Explicitly use the correct column name
   userId: number;
 
-  @BelongsTo(() => UserModel)  // This sets the reverse of HasMany in UserModel
-  user: UserModel; // This allows you to reference the user directly from a car instance
+  @BelongsTo(() => UserModel)
+  user: UserModel;
 }
+
 
 
 

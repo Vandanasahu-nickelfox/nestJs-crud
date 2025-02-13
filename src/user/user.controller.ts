@@ -9,7 +9,7 @@ export class UserController {
 
   @Post()
   public async create(@Body() user: UserDto) {
-    return this.userService.createUser(user);  // Ensure this matches the UserDto structure
+    return this.userService.createUser(user); 
   }
 
   @Get()

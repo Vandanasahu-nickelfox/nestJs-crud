@@ -14,8 +14,10 @@ export class CarDto {
   color: string;
 
   @IsInt()
-  userId: number;  // Make sure to validate the userId
+  @IsNotEmpty()
+  userId: number;  
 }
+
 
 
 
