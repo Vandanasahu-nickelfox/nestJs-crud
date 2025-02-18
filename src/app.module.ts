@@ -6,6 +6,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import * as dotenv from 'dotenv';
 import { CarModel } from './car/car.model';
 import { UserModel } from './user/user.model';
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config();
 
@@ -23,7 +24,7 @@ dotenv.config();
       models: [CarModel, UserModel],
       autoLoadModels: true,
       synchronize: true,
-    }),
+    }), AuthModule,
   ],
 })
 export class AppModule {}
